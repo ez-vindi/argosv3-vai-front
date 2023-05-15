@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V.AI</title>
+    
+</head>
+
+<body>
+</body>
+<link rel="stylesheet" href="/dist/style.css">
+<script src="/src/vai.js"></script>
+
+</html>
+
+<script>
+    var vai_data = {};
+
+    vai_data['default'] = {
+        msgs: [
+            'Olá dona Suellen 🤗',
+            'Hoje tenho uma proposta pra você',
+            'Venha conhecer os produtos da Vindi. Aqui você conta com segurança pra processar os pagamentos da sua loja.',
+        ],
+        btns: [
+            {
+                text: 'Aceito a proposta',
+                action: 'proposta'
+            }, {
+                text: 'Quero saber mais',
+                action: 'proposta'
+            }, {
+                text: 'Não obrigado',
+                action: 'obrigado'
+            }, {
+                text: 'Não obrigado',
+                action: 'obrigado'
+            }
+        ]
+    }
+
+    vai_data['proposta'] = {
+        msgs: [
+            'A proposta é a seguinte',
+            'Percebi que você está recendo seus boletos em 14 dias a um custo de R$ 2,50',
+            'A proposta, é que você receba em apenas 2 dias, com um custo de R$ 3,50',
+            'Assim, você consegue ter um fluxo de caixa melhor para sua empresa e com menos dependencia de emprestimos bancários'
+        ],
+        btns: [
+            {
+                text: 'Aceito a proposta',
+                action: 'proposta'
+            }, {
+                text: 'Quero saber mais',
+                action: 'proposta'
+            }, {
+                text: 'Não obrigado',
+                action: 'obrigado'
+            }
+        ]
+    }
+
+    vai_data['obrigado'] = {
+        msgs: [
+            'Ok, obrigado por me ouvir',
+            'Se precisar de algo, estou aqui',
+            'Se quiser sabe mais sobre a proposta, você tambem pode entrar em contato com nosso time de CS',
+            'Até mais 🤗'
+        ],
+        btns: [
+            {
+                text: 'Continuar',
+                action: 'linkclose_https://vindi.com.br/'
+            },
+            {
+                text: 'Fechar',
+                action: 'close_vai'
+            }
+        ]
+    }
+
+    var Vai = new Vai();
+
+    window.loadStep();
+</script>
