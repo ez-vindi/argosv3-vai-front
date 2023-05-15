@@ -1,0 +1,177 @@
+.vai-mask {
+  z-index: 9998;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.3);
+}
+.vai {
+  z-index: 9999;
+  background: #fff;
+  position: fixed;
+  top: 15%;
+  bottom: 15%;
+  left: 25%;
+  right: 25%;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,0.3);
+  border-radius: 15px;
+  padding: 20px;
+  opacity: 0;
+  transition-duration: 0.5s;
+  transform: translateY(20px);
+}
+.vai.show {
+  transform: translateY(0px);
+  opacity: 1;
+}
+.vai * {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.vai:before {
+  content: '';
+  display: block;
+  position: absolute;
+  background: url("../src/vai_logo.png");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 50px;
+  background-position: right;
+  height: 25px;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+}
+.vai-close {
+  background-image: url("../src/close.svg");
+  background-color: #6f5a5a;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50%;
+  border-radius: 100%;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: -26px;
+  right: -26px;
+  border: 0;
+}
+.vai-close:hover {
+  background-color: #973636;
+}
+.vai-top {
+  overflow-y: auto;
+  max-height: 100%;
+}
+.vai-msg {
+  width: max-content;
+  margin-bottom: 10px;
+  padding: 8px 13px;
+  background: #00a3ff;
+  border-radius: 20px;
+  max-width: 40%;
+  transition-duration: 0.35s;
+  opacity: 0;
+  margin-left: 35px;
+  position: relative;
+}
+.vai-msg.show {
+  opacity: 1;
+}
+.vai-msg:first-child:before {
+  content: '';
+  background-image: url("https://vindi.com.br/assets/images/logo/logo_vindi_146X150.png");
+  background-size: contain;
+  background-position: center center;
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: -35px;
+  top: 5px;
+}
+.vai-msg-text {
+  line-height: 1.4;
+  color: #fff;
+  position: relative;
+}
+.vai-msg-text.write {
+  padding-right: 5px;
+}
+.vai-msg-text.write:before {
+  content: '\2759';
+  display: block;
+  position: absolute;
+  right: -3px;
+  bottom: -7px;
+  font-size: 23px;
+  animation: fade 0.9s infinite;
+}
+.vai-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+.vai-button {
+  border-radius: 20px;
+  padding: 9px 12px;
+  background: #001a9e;
+  border: 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  transition-duration: 0.15s;
+  margin-left: 5px;
+  margin-top: 15px;
+}
+.vai-button:hover {
+  background: #020c3c;
+  cursor: pointer;
+}
+@-moz-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
