@@ -1,4 +1,4 @@
-function vaiScroll(){
+function vaiScroll() {
     const div = document.querySelector('#vai-top');
 
     function scrollDivToBottom() {
@@ -21,8 +21,18 @@ function vaiScroll(){
             this._speed = data['speed'] || 50;
             this.stopped = false;
 
-            this._body = document.querySelector('body');
-            this._body.innerHTML += '<div class="vai-mask"></div><div class="vai" id="vai-module"><a href="#" id="vaiClose" class="vai-close"></a><div class="vai-top" id="vai-top"></div></div>';
+            const maskElement = document.createElement('div');
+            maskElement.className = 'vai-mask';
+
+            const vaiElement = document.createElement('div');
+            vaiElement.id = 'vai-module';
+            vaiElement.className = 'vai';
+            vaiElement.innerHTML = '<a href="#" id="vaiClose" class="vai-close"></a><div class="vai-top" id="vai-top"></div>';
+
+            const bodyElement = document.querySelector('body');
+            bodyElement.appendChild(maskElement);
+            bodyElement.appendChild(vaiElement);
+
             window.vaiScroll();
             this.closeButton();
         }
@@ -49,7 +59,7 @@ function vaiScroll(){
         }
 
         typeWriter(element, msg) {
-            if(this.stopped == true) {
+            if (this.stopped == true) {
                 return false
             }
 
@@ -70,7 +80,7 @@ function vaiScroll(){
         }
 
         insertText(msg) {
-            if(this.stopped == true) {
+            if (this.stopped == true) {
                 return false
             }
 
@@ -97,7 +107,7 @@ function vaiScroll(){
         }
 
         exibirMensagem() {
-            if(this.stopped == true) {
+            if (this.stopped == true) {
                 return false
             }
 
@@ -117,7 +127,7 @@ function vaiScroll(){
         }
 
         showMessage(data) {
-            if(this.stopped == true) {
+            if (this.stopped == true) {
                 return false
             }
             this._counter = 0;
@@ -131,7 +141,7 @@ function vaiScroll(){
                 document.getElementById('vai-module').classList.add('show');
                 setTimeout(function () {
                     callExibirMensagem(this._msgs);
-                }, 200); 
+                }, 200);
             }, 800);
         }
     }
@@ -148,7 +158,7 @@ function loadStep(step = 'default') {
 
     if (step.indexOf('linkclose_') > -1) {
         vaiClose();
-        window.Vai.close(); 
+        window.Vai.close();
         var link = step.replace('linkclose_', '');
         window.open(link);
         return;
@@ -156,7 +166,7 @@ function loadStep(step = 'default') {
 
     if (step.indexOf('close_vai') > -1) {
         vaiClose();
-        window.Vai.close();    
+        window.Vai.close();
         return;
     }
 
