@@ -35,7 +35,7 @@
     // document.head.appendChild(link);
     // document.head.appendChild(script);
 
-    function vaiClose(){
+    function vaiClose() {
         localStorage.setItem("vai_boleto", true)
     }
 
@@ -55,6 +55,8 @@
     }
 
     function loadVai(data) {
+
+        Vai = new Vai();
 
         window.vai_data = {};
 
@@ -126,7 +128,7 @@
 
         if (user_id > 0) {
             var xhr = new XMLHttpRequest();
-            var backofficeId = 729948;
+            var backofficeId = user_id;
 
             var url = "https://explorer.argosv3.analytics.vindi.com.br/vai/boletos/?backoffice_id=" + backofficeId;
 
@@ -134,8 +136,10 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
-                    console.log(response[0]);
-                    loadVai(response[0]);
+                    if (response.length > 0) {
+                        loadVai(response[0]);
+                    }
+
                 }
             };
 
@@ -147,8 +151,10 @@
 
     if (localStorage.getItem("vai_boleto") == null) {
         if (screen.width >= 1200) {
-            loadData(dataLayer[0].userId)
-            Vai = new Vai();
+            setTimeout(function () {
+                loadData(dataLayer[0].userId)
+            }, 1000);
+
         }
     }
 </script>
