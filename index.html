@@ -6,83 +6,151 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>V.AI</title>
-    
+    <script>
+        dataLayer = [];
+        dataLayer.push({
+            "userId": 729948
+        });
+    </script>
 </head>
 
 <body>
 </body>
+<script>
+    argosOnlySession = true // default false
+    argosNoForms = true // default false
+</script>
+
+<script src="https://ezanatta-vindi.github.io/argosv3-js/argosv3.min.js?v3"></script>
+
 <link rel="stylesheet" href="./dist/style.css">
 <script src="./src/vai.js"></script>
 
 </html>
 
 <script>
-    var vai_data = {};
+    // var link = document.createElement('link');
+    // link.href = 'https://ezanatta-vindi.github.io/argosv3-vai-front/dist/style.css';
+    // link.rel = 'stylesheet';
+    // var script = document.createElement('script');
+    // script.src = 'https://ezanatta-vindi.github.io/argosv3-vai-front/src/vai.js';
+    // document.head.appendChild(link);
+    // document.head.appendChild(script);
 
-    vai_data['default'] = {
-        msgs: [
-            'Olá dona Suellen 🤗',
-            'Hoje tenho uma proposta pra você',
-            'Venha conhecer os produtos da Vindi. Aqui você conta com segurança pra processar os pagamentos da sua loja.',
-        ],
-        btns: [
-            {
-                text: 'Aceito a proposta',
-                action: 'proposta'
-            }, {
-                text: 'Quero saber mais',
-                action: 'proposta'
-            }, {
-                text: 'Não obrigado',
-                action: 'obrigado'
-            }, {
-                text: 'Não obrigado',
-                action: 'obrigado'
-            }
-        ]
+    function vaiClose(){
+        localStorage.setItem("vai_boleto", true)
     }
 
-    vai_data['proposta'] = {
-        msgs: [
-            'A proposta é a seguinte',
-            'Percebi que você está recendo seus boletos em 14 dias a um custo de R$ 2,50',
-            'A proposta, é que você receba em apenas 2 dias, com um custo de R$ 3,50',
-            'Assim, você consegue ter um fluxo de caixa melhor para sua empresa e com menos dependencia de emprestimos bancários'
-        ],
-        btns: [
-            {
-                text: 'Aceito a proposta',
-                action: 'proposta'
-            }, {
-                text: 'Quero saber mais',
-                action: 'proposta'
-            }, {
-                text: 'Não obrigado',
-                action: 'obrigado'
+    function vaiSave() {
+        localStorage.setItem("vai_boleto", true)
+
+        var dataEvent = JSON.stringify({
+            "type": 5,
+            "token": parseInt(window.ArgosV3.userid),
+            "data": {
+                "20": "c_bol_d2",
             }
-        ]
+        });
+
+        var blob = new Blob([dataEvent], { type: 'application/json; charset=UTF-8' });
+        navigator.sendBeacon('https://argosv3.analytics.vindi.com.br/event/', blob)
     }
 
-    vai_data['obrigado'] = {
-        msgs: [
-            'Ok, obrigado por me ouvir',
-            'Se precisar de algo, estou aqui',
-            'Se quiser sabe mais sobre a proposta, você tambem pode entrar em contato com nosso time de CS',
-            'Até mais 🤗'
-        ],
-        btns: [
-            {
-                text: 'Continuar',
-                action: 'linkclose_https://vindi.com.br/'
-            },
-            {
-                text: 'Fechar',
-                action: 'close_vai'
-            }
-        ]
+    function loadVai(data) {
+
+        window.vai_data = {};
+
+        vai_data['default'] = {
+            msgs: [
+                'Olá ' + data['primeiro_nome'] + ', tudo bem?',
+                'Tenho uma proposta para você receber as suas vendas de boleto em 2 dias.',
+            ],
+            btns: [
+                {
+                    text: 'QUERO saber mais',
+                    action: 'proposta'
+                }, {
+                    text: 'NÃO tenho interesse em receber em 2 dias',
+                    action: 'exit'
+                }
+            ]
+        }
+
+        vai_data['proposta'] = {
+            msgs: [
+                'Que bom que você aceitou saber mais sobre como a Vindi te ajuda a alavancar seu negócio',
+                'Neste último mês você vendeu R$ ' + data['rs_transacionado'] + ' em Boletos e recebeu esse valor em ' + data['fluxo_antigo'] + ' dias a um custo de ' + data['custo_antigo'] + ' por boleto pago',
+                'Nossa proposta é que você receba suas vendas em 2 dias, por R$ ' + data['rs_proposta'] + ' por boleto pago',
+                'Aceitando a proposta, você recebe o dinheiro sem ter que esperar os ' + data['fluxo_antigo'] + ' dias e assim você pode usar esse dinheiro para investir em tudo que precisar para seu negócio ter cada vez mais sucesso'
+            ],
+            btns: [
+                {
+                    text: 'ACEITO a proposta',
+                    action: 'save_aceite'
+                }, {
+                    text: 'NÃO tenho interesse em receber em 2 dias',
+                    action: 'exit'
+                }
+            ]
+        }
+
+        vai_data['aceite'] = {
+            msgs: [
+                'Parabéns, iremos te enviar um e-mail confirmando o seu aceite e a alteração do seu prazo de recebimento de ' + data['fluxo_antigo'] + ' dias para o recebimento em 2 dias',
+                'Sucesso e ótimas vendas!'
+            ],
+            btns: [
+                {
+                    text: 'Fechar',
+                    action: 'close_vai'
+                }
+            ]
+        }
+
+        vai_data['exit'] = {
+            msgs: [
+                'Entendi…',
+                'Tudo bem, mas se mudar de ideia é só entrar em contato com o nosso time de atendimento, por meio de um dos canais, informando sobre a proposta',
+                'Sucesso e ótimas vendas!'
+            ],
+            btns: [
+                {
+                    text: 'Fechar',
+                    action: 'close_vai'
+                }
+            ]
+        }
+
+        window.loadStep();
     }
 
-    var Vai = new Vai();
+    function loadData(user_id) {
 
-    window.loadStep();
+        if (user_id > 0) {
+            var xhr = new XMLHttpRequest();
+            var backofficeId = 729948;
+
+            var url = "https://explorer.argosv3.analytics.vindi.com.br/vai/boletos/?backoffice_id=" + backofficeId;
+
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response[0]);
+                    loadVai(response[0]);
+                }
+            };
+
+            xhr.send();
+        } else {
+            return false
+        }
+    }
+
+    if (localStorage.getItem("vai_boleto") == null) {
+        if (screen.width >= 1200) {
+            loadData(dataLayer[0].userId)
+            Vai = new Vai();
+        }
+    }
 </script>

@@ -42,6 +42,7 @@ function vaiScroll(){
             var callClose = this.close.bind(this);
 
             document.getElementById('vaiClose').addEventListener('click', function (e) {
+                window.vaiClose();
                 e.preventDefault();
                 callClose();
             })
@@ -106,7 +107,6 @@ function vaiScroll(){
             } else {
                 var html_btns = '<div class="vai-buttons">';
                 this._btns.forEach(element => {
-                    console.log(element);
                     html_btns += '<button class="vai-button" onclick="window.loadStep(\'' + element['action'] + '\')">' + element['text'] + '</button>';
                 });
                 html_btns += '</div>';
@@ -147,6 +147,7 @@ function loadStep(step = 'default') {
     }
 
     if (step.indexOf('linkclose_') > -1) {
+        vaiClose();
         window.Vai.close(); 
         var link = step.replace('linkclose_', '');
         window.open(link);
@@ -154,9 +155,17 @@ function loadStep(step = 'default') {
     }
 
     if (step.indexOf('close_vai') > -1) {
+        vaiClose();
         window.Vai.close();    
         return;
     }
 
-    Vai.showMessage(vai_data[step]);
+    if (step.indexOf('save_') > -1) {
+        var step_split = step.split('_');
+        vaiSave();
+        Vai.showMessage(vai_data[step_split[1]]);
+        return;
+    }
+
+    window.Vai.showMessage(vai_data[step]);
 }
