@@ -21,21 +21,19 @@
     argosNoForms = true // default false
 </script>
 
-<script src="https://ezanatta-vindi.github.io/argosv3-js/argosv3.min.js?v3"></script>
-
 <link rel="stylesheet" href="./dist/style.css">
 <script src="./src/vai.js"></script>
 
 </html>
 
 <script>
-    // var link = document.createElement('link');
-    // link.href = 'https://ezanatta-vindi.github.io/argosv3-vai-front/dist/style.css';
-    // link.rel = 'stylesheet';
-    // var script = document.createElement('script');
-    // script.src = 'https://ezanatta-vindi.github.io/argosv3-vai-front/src/vai.js';
-    // document.head.appendChild(link);
-    // document.head.appendChild(script);
+    var link = document.createElement('link');
+    link.href = 'https://ezanatta-vindi.github.io/argosv3-vai-front/dist/style.css';
+    link.rel = 'stylesheet';
+    var script = document.createElement('script');
+    script.src = 'https://ezanatta-vindi.github.io/argosv3-vai-front/src/vai.js';
+    document.head.appendChild(link);
+    document.head.appendChild(script);
 
     function vaiClose(){
         localStorage.setItem("vai_boleto", true)

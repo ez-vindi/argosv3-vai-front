@@ -18,7 +18,7 @@ function vaiScroll(){
             this._version = '0.0.1';
             this._data = data;
             this._i = 0;
-            this._speed = data['speed'] || 55;
+            this._speed = data['speed'] || 50;
             this.stopped = false;
 
             this._body = document.querySelector('body');
